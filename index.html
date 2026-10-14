@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="輸入 7 位數字研習代碼，一鍵產生全國教師在職進修資訊網研習連結。">
+  <title>研習連結產生器</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, -apple-system, "Microsoft JhengHei", sans-serif; color: #18342e; background: #f4f7f4; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100svh; display: grid; place-items: center; padding: 32px 20px; background: radial-gradient(ellipse at top right, #e0eee7, transparent 60%), #f4f7f4; }
+    main { width: 100%; max-width: 560px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; margin-bottom: 28px; }
+    .mark { background: #17634d; color: white; border-radius: 12px; padding: 9px 12px; font-size: 20px; }
+    .card { padding: 40px; background: white; border: 1px solid #dbe7df; border-radius: 24px; box-shadow: 0 18px 60px #18342e09; }
+    .eyebrow { color: #17634d; font-size: 12px; letter-spacing: .14em; font-weight: 700; }
+    h1 { font-size: clamp(26px, 5vw, 34px); margin: 12px 0; letter-spacing: -.04em; }
+    .intro { color: #64756c; line-height: 1.8; margin: 0 0 30px; }
+    label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+    input { width: 100%; min-height: 64px; border: 1px solid #bfcec4; border-radius: 12px; padding: 12px 18px; font: inherit; font-size: 26px; letter-spacing: .12em; color: #18342e; background: #fbfcfa; }
+    input::placeholder { color: #a0afa6; }
+    input:focus { outline: 3px solid #b5dcc8; outline-offset: 2px; border-color: #17634d; }
+    .hint { color: #758279; font-size: 13px; margin: 10px 0 22px; }
+    button, .open { font: inherit; font-weight: 700; border-radius: 12px; padding: 15px 20px; cursor: pointer; text-decoration: none; text-align: center; }
+    button:focus-visible, a:focus-visible { outline: 3px solid #78b798; outline-offset: 3px; }
+    .generate { width: 100%; background: #17634d; color: white; border: 1px solid #17634d; }
+    .generate:hover, .open:hover { background: #104c3b; }
+    .error { color: #a43329; font-size: 14px; margin: 14px 0 0; }
+    [hidden] { display: none !important; }
+    .result { margin-top: 26px; border-top: 1px solid #e4ebe5; padding-top: 24px; }
+    .result-title { font-size: 14px; font-weight: 700; margin: 0 0 12px; }
+    .url { display: block; color: #315f50; background: #f1f6f2; padding: 14px; border-radius: 10px; overflow-wrap: anywhere; font-size: 13px; line-height: 1.7; }
+    .actions { display: flex; gap: 10px; margin-top: 14px; }
+    .open { flex: 1; background: #17634d; color: white; }
+    .copy { background: white; border: 1px solid #cbd8cf; color: #315f50; }
+    .status { min-height: 20px; color: #64756c; font-size: 13px; margin: 12px 0 0; }
+    footer { margin-top: 24px; text-align: center; color: #758279; font-size: 12px; line-height: 1.8; }
+    @media (max-width: 420px) { .card { padding: 28px 22px; } .actions { flex-direction: column; } }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="brand"><span class="mark" aria-hidden="true">↗</span>教師研習小工具</div>
+    <section class="card" aria-labelledby="title">
+      <div class="eyebrow">COURSE LINK</div>
+      <h1 id="title">研習連結產生器</h1>
+      <p class="intro">有研習代碼，就有直達連結。<br>輸入代碼，快速開啟或分享研習頁面。</p>
+      <form id="form" novalidate>
+        <label for="code">研習代碼</label>
+        <input id="code" name="code" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" placeholder="例如 5758673" aria-describedby="hint error" required>
+        <p class="hint" id="hint">請輸入完整的 7 位數字代碼。</p>
+        <button class="generate" type="submit">產生研習連結 <span aria-hidden="true">→</span></button>
+        <p class="error" id="error" role="alert" hidden></p>
+      </form>
+      <section class="result" id="result" aria-label="產生的研習連結" hidden>
+        <p class="result-title">你的研習連結已準備好</p>
+        <a class="url" id="url" target="_blank" rel="noopener noreferrer"></a>
+        <div class="actions">
+          <a class="open" id="open" target="_blank" rel="noopener noreferrer">開啟研習頁面 ↗</a>
+          <button class="copy" id="copy" type="button">複製網址</button>
+        </div>
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+      </section>
+    </section>
+    <footer>連結前往全國教師在職進修資訊網<br>本工具僅產生網址，研習內容以官方頁面為準。</footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
